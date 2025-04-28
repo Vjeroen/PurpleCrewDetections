@@ -1,41 +1,25 @@
 {
-  "$schema": "https://schema.management.azure.com/schemas/2019-01-01/deploymentTemplate.json#",
-  "contentVersion": "1.0.0.0",
-  "parameters": {},
-  "resources": [
-    {
-      "type": "Microsoft.OperationalInsights/workspaces/providers/alertRules",
-      "apiVersion": "2022-12-01-preview",
-      "name": "[parameters('workspaceName')]/Microsoft.SecurityInsights/[PurpleCrew]: Phishing Attachment Download Detection (T1566.001)",
-      "kind": "Scheduled",
-      "properties": {
-        "displayName": "[PurpleCrew]: Phishing Attachment Download Detection (T1566.001)",
-        "description": "Detects the download of suspicious file types via common command-line utilities (e.g., curl, powershell).",
-        "severity": "High",
-        "enabled": true,
-        "query": "SysmonEvent\n| where EventID == 1\n| where CommandLine has_any ('curl', 'Invoke-WebRequest', 'certutil')\n| where CommandLine has_any ('.doc', '.xls', '.ppt', '.pdf', '.zip')\n| project TimeGenerated, Computer, CommandLine, UserName",
-        "queryFrequency": "PT1H",
-        "queryPeriod": "PT1H",
-        "triggerOperator": "GreaterThan",
-        "triggerThreshold": 1,
-        "suppressionEnabled": false,
-        "suppressionDuration": "PT1H",
-        "tactics": [
-          "InitialAccess"
-        ],
-        "techniques": [
-          "T1566.001"
-        ],
-        "alertRuleTemplateName": "[PurpleCrew]: Phishing Attachment Download Detection (T1566.001)",
-        "metadata": {
-          "author": "Purple Crew",
-          "source": "PurpleCrew Sentinel"
-        },
-        "eventGroupingSettings": {
-          "aggregationKind": "AlertPerResult"
-        },
-        "customDetails": {}
-      }
+  "kind": "Scheduled",
+  "properties": {
+    "displayName": "[PurpleCrew]: Phishing Attachment Download Detection (T1566.001)",
+    "description": "Detects the download of suspicious file types via common command-line utilities (e.g., curl, powershell).",
+    "severity": "High",
+    "enabled": true,
+    "query": "parse_sysmon()\n| where EventID == 1\n| where CommandLine has_any ('curl', 'Invoke-WebRequest', 'certutil')\n| where CommandLine has_any ('.doc', '.xls', '.ppt', '.pdf', '.zip')\n| project TimeGenerated, Computer, CommandLine, UserName",
+    "queryFrequency": "PT1H",
+    "queryPeriod": "PT1H",
+    "triggerOperator": "GreaterThan",
+    "triggerThreshold": 1,
+    "suppressionEnabled": false,
+    "suppressionDuration": "PT1H",
+    "tactics": ["InitialAccess"],
+    "techniques": ["T1566.001"],
+    "alertRuleTemplateName": "[PurpleCrew]: Phishing Attachment Download Detection (T1566.001)",
+    "customDetails": {
+      "Author": "Purple Crew"
+    },
+    "eventGroupingSettings": {
+      "aggregationKind": "AlertPerResult"
     }
-  ]
+  }
 }
