@@ -1,0 +1,26 @@
+$schema: https://schema.management.azure.com/schemas/2019-01-01/deploymentTemplate.json#
+contentVersion: 1.0.0.0
+kind: Scheduled
+properties:
+  displayName: '[PurpleCrew]: Phishing Attachment Download Detection (T1566.001)'
+  description: Detects the download of suspicious file types via command-line tools like curl, Invoke-WebRequest, or certutil.
+  severity: High
+  enabled: true
+  query: |
+    SysmonEvent
+    | where EventID == 1
+    | where CommandLine has_any ('curl', 'Invoke-WebRequest', 'certutil')
+    | where CommandLine has_any ('.doc', '.xls', '.ppt', '.pdf', '.zip')
+    | project TimeGenerated, Computer, CommandLine, UserName
+  queryFrequency: PT1H
+  queryPeriod: PT1H
+  triggerOperator: GreaterThan
+  triggerThreshold: 1
+  tactics:
+    - InitialAccess
+  techniques:
+    - T1566.001
+  suppressionEnabled: false
+  metadata:
+    author: Purple Crew
+    source: GitHub
