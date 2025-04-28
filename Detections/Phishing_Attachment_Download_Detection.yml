@@ -1,4 +1,5 @@
 {
+  "kind": Scheduled
   "name": "[PurpleCrew]: Phishing Attachment Download Detection (T1566.001)",
   "description": "Detects the download of suspicious file types via common command-line utilities (e.g., curl, powershell).",
   "severity": "High",
