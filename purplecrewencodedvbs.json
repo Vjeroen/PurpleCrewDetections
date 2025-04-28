@@ -8,7 +8,6 @@
     },
     "resources": [
         {
-            "id": "[concat(resourceId('Microsoft.OperationalInsights/workspaces/providers', parameters('workspace'), 'Microsoft.SecurityInsights'),'/alertRules/968195b1-e9d7-414a-9173-f6a9039b18ba')]",
             "name": "[concat(parameters('workspace'),'/Microsoft.SecurityInsights/968195b1-e9d7-414a-9173-f6a9039b18ba')]",
             "type": "Microsoft.OperationalInsights/workspaces/providers/alertRules",
             "kind": "Scheduled",
