@@ -79,6 +79,5 @@ jobs:
       uses: azure/powershell@v1
       with:
         azPSVersion: 'latest'
-        debug: true
         inlineScript: |
           ${{ github.workspace }}//.github/workflows/azure-sentinel-deploy-b922c55b-a132-436d-9ded-7091f66a6b08.ps1
